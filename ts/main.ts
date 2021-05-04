@@ -5,21 +5,15 @@ class VideoGame{
     isDigitOnly:boolean; 
 }
 
-// Test code
-let myGame = new VideoGame();
-myGame.title = "mario";
-myGame.rating = "E";
-myGame.isDigitOnly = true; 
 
 
-window.onload= function(){
+window.onload = function(){
     let addBtn = 
                 <HTMLElement>document.querySelector("input[type=button]");
     addBtn.onclick = addVideoGame; 
 }
 
 function addVideoGame(){
-    console.log("Add video game was called"); 
 
     if(isAllDateValid()){
         let game = getVideoGame();
@@ -66,4 +60,21 @@ function getVideoGame():VideoGame{
 
 function displayGame(myGame:VideoGame):void{
     //TODO: Display video game below the form 
+    let displayDiv = $("display");
+
+    let gameHeading = document.createElement("h2");
+    gameHeading.innerText = myGame.title; 
+
+    let gameInfo = document.createElement("p");
+
+    let notDigitalDisplay = ""; 
+    if(myGame.isDigitOnly){
+        notDigitalDisplay = "not";
+    }
+    gameInfo.innerText = myGame.title + " has a rating of " + 
+                        myGame.rating + ". It costs " + myGame.price 
+                        + ". It is " + notDigitalDisplay + " digital only";
+                        
+    displayDiv.appendChild(gameHeading);
+    displayDiv.appendChild(gameInfo); 
 }
