@@ -14,6 +14,28 @@ function addVideoGame() {
     }
 }
 function isAllDateValid() {
+    var errorDiv = $("validation");
+    var titleError = $("title");
+    var ratingError = $("rating");
+    var priceError = $("price");
+    if (titleError.value == "") {
+        var titleDisplay = document.createElement("p");
+        titleDisplay.innerText = "Must enter the title of your game";
+        errorDiv.appendChild(titleDisplay);
+        return false;
+    }
+    if (isNaN(parseInt(priceError.value))) {
+        var priceDisplay = document.createElement("p");
+        priceDisplay.innerText = "Must enter a price for your game";
+        errorDiv.appendChild(priceDisplay);
+        return false;
+    }
+    if (ratingError.value == "Please choose a rating") {
+        var ratingDisplay = document.createElement("p");
+        ratingDisplay.innerText = "Must select a rating for your game";
+        errorDiv.appendChild(ratingDisplay);
+        return false;
+    }
     return true;
 }
 function $(id) {
@@ -25,7 +47,7 @@ function getVideoGame() {
     game.title = titleInput.value;
     var priceInput = $("price");
     game.price = parseFloat(priceInput.value);
-    var ratingInput = $("value");
+    var ratingInput = $("rating");
     game.rating = ratingInput.value;
     var digitalOnly = $("online");
     if (digitalOnly.checked) {
@@ -49,6 +71,7 @@ function displayGame(myGame) {
     gameInfo.innerText = myGame.title + " has a rating of " +
         myGame.rating + ". It costs " + myGame.price
         + ". It is " + notDigitalDisplay + " digital only";
+    console.log(gameHeading);
     displayDiv.appendChild(gameHeading);
     displayDiv.appendChild(gameInfo);
 }

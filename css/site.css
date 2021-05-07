@@ -13,3 +13,10 @@ input[type=checkbox], input[type=button]{
     margin-left:50%;
 }
 
+div:validation{
+    text-align: right;
+    color:red;
+}
+
+
+
