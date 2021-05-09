@@ -7,36 +7,45 @@ window.onload = function () {
     var addBtn = document.querySelector("input[type=button]");
     addBtn.onclick = addVideoGame;
 };
+function clearAllErrors() {
+    var errorSummery = $("validation");
+    errorSummery.innerText = "";
+}
 function addVideoGame() {
+    clearAllErrors();
     if (isAllDateValid()) {
         var game = getVideoGame();
         displayGame(game);
     }
 }
+function getInputById(id) {
+    return document.getElementById(id);
+}
 function isAllDateValid() {
-    var errorDiv = $("validation");
-    var titleError = $("title");
-    var ratingError = $("rating");
-    var priceError = $("price");
-    if (titleError.value == "") {
-        var titleDisplay = document.createElement("p");
-        titleDisplay.innerText = "Must enter the title of your game";
-        errorDiv.appendChild(titleDisplay);
-        return false;
+    var isValid = true;
+    var title = getInputById("title").value;
+    if (title == "") {
+        isValid = false;
+        addErrorMessage("Title is required");
     }
-    if (isNaN(parseInt(priceError.value))) {
-        var priceDisplay = document.createElement("p");
-        priceDisplay.innerText = "Must enter a price for your game";
-        errorDiv.appendChild(priceDisplay);
-        return false;
+    var price = getInputById("price").value;
+    var priceValue = parseFloat(price);
+    if (price == "" || isNaN(priceValue)) {
+        isValid = false;
+        addErrorMessage("Price is required and must be a number");
     }
-    if (ratingError.value == "Please choose a rating") {
-        var ratingDisplay = document.createElement("p");
-        ratingDisplay.innerText = "Must select a rating for your game";
-        errorDiv.appendChild(ratingDisplay);
-        return false;
+    var rating = $("rating").value;
+    if (rating == "") {
+        isValid = false;
+        addErrorMessage("You must choose a rating");
     }
-    return true;
+    return isValid;
+}
+function addErrorMessage(errorMessage) {
+    var errorSummery = $("validation");
+    var errorItem = document.createElement("li");
+    errorItem.innerText = errorMessage;
+    errorSummery.appendChild(errorItem);
 }
 function $(id) {
     return document.getElementById(id);
