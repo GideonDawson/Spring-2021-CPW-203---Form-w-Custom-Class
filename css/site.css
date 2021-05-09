@@ -13,10 +13,19 @@ input[type=checkbox], input[type=button]{
     margin-left:50%;
 }
 
-div:validation{
-    text-align: right;
+#validation{
     color:red;
+    list-style-type:square; 
 }
+
+.rating-error{
+    font-style:italic; 
+    font-weight:bolder; 
+    cursor:pointer; 
+    width:25%; 
+}
+
+
 
 
 

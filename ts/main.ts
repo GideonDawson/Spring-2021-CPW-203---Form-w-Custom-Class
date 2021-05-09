@@ -27,7 +27,21 @@ function addVideoGame() {
     if (isAllDateValid()) {
         let game: VideoGame = getVideoGame();
         displayGame(game);
+    }else{
+        displayRatingsLink();
     }
+}
+function displayRatingsLink(){
+    let ratingsElements = document.querySelectorAll(".rating-error");
+    for(let i = 0; i < ratingsElements.length; i++){
+        let currentElement = <HTMLElement> ratingsElements[i];
+        currentElement.onclick = goToRatingsPage; 
+       // currentElement.innerHTML += "<a target='_blank' href='https//:www.esrb.org/'>Click here for info </a>";
+    }
+}
+
+function goToRatingsPage(){
+    window.open("https://www.esrb.org/", "_blank");
 }
 
 function getInputById(id: string): HTMLInputElement {
@@ -40,8 +54,8 @@ function isAllDateValid() {
     let title = getInputById("title").value;
     if (title == "") {
         isValid = false;
-
         addErrorMessage("Title is required");
+        
     }
 
     let price = getInputById("price").value;
@@ -49,12 +63,14 @@ function isAllDateValid() {
     if (price == "" || isNaN(priceValue)) {
         isValid = false;
         addErrorMessage("Price is required and must be a number"); 
+       
     }
 
     let rating = (<HTMLOptionElement>$("rating")).value; 
     if(rating == ""){
         isValid = false; 
-        addErrorMessage("You must choose a rating"); 
+        //addErrorMessage("You must choose a rating"); 
+        addErrorMsgWithCustomClass("You must choose a rating"!, "rating-error");
     }
     return isValid;
 }
@@ -62,9 +78,20 @@ function isAllDateValid() {
 function addErrorMessage(errorMessage:string){
     let errorSummery = $("validation");
     let errorItem = document.createElement("li");
+    errorItem.classList.add("myclass");
     errorItem.innerText = errorMessage;
 
     errorSummery.appendChild(errorItem);
+}
+
+function addErrorMsgWithCustomClass(errorMessage:string, cssClass:string){
+    let errorSummery = $("validation");
+    let errorItem = document.createElement("li");
+    errorItem.classList.add(cssClass);
+    errorItem.innerText = errorMessage;
+
+    errorSummery.appendChild(errorItem);
+
 }
 
 function $(id: string) {

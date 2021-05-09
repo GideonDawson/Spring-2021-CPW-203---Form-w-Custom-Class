@@ -17,6 +17,19 @@ function addVideoGame() {
         var game = getVideoGame();
         displayGame(game);
     }
+    else {
+        displayRatingsLink();
+    }
+}
+function displayRatingsLink() {
+    var ratingsElements = document.querySelectorAll(".rating-error");
+    for (var i = 0; i < ratingsElements.length; i++) {
+        var currentElement = ratingsElements[i];
+        currentElement.onclick = goToRatingsPage;
+    }
+}
+function goToRatingsPage() {
+    window.open("https://www.esrb.org/", "_blank");
 }
 function getInputById(id) {
     return document.getElementById(id);
@@ -37,13 +50,21 @@ function isAllDateValid() {
     var rating = $("rating").value;
     if (rating == "") {
         isValid = false;
-        addErrorMessage("You must choose a rating");
+        addErrorMsgWithCustomClass("You must choose a rating", "rating-error");
     }
     return isValid;
 }
 function addErrorMessage(errorMessage) {
     var errorSummery = $("validation");
     var errorItem = document.createElement("li");
+    errorItem.classList.add("myclass");
+    errorItem.innerText = errorMessage;
+    errorSummery.appendChild(errorItem);
+}
+function addErrorMsgWithCustomClass(errorMessage, cssClass) {
+    var errorSummery = $("validation");
+    var errorItem = document.createElement("li");
+    errorItem.classList.add(cssClass);
     errorItem.innerText = errorMessage;
     errorSummery.appendChild(errorItem);
 }
